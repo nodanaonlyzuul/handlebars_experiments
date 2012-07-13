@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="javascript/handlebars.js"></script>
+  </head>
+  <body>
+    <div id="contentgoeshere"></div>
+
+    <script  id="person-partial" type="text/x-handlebars-template">
+      <h1>My name is {{ this.name }}</h1>
+    </script>
+
+    <script id="some-template" type="text/x-handlebars-template">
+      {{#each people}}
+        {{> person}}
+      {{/each}}
+    </script>
+
+    <script type="text/javascript" charset="utf-8">
+      var data     = { people: [{name: "Stephen Schor"}, {name: "Ross Cooperman"}] };
+      var source   = $("#some-template").html();
+      var template = Handlebars.compile(source);
+      Handlebars.registerPartial("person", $('#person-partial').html());
+
+      $("#contentgoeshere").html(template(data));
+    </script>
+  </body>
+</html>
